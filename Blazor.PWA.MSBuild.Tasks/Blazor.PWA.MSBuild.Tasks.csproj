@@ -13,15 +13,15 @@
     <Description>The easiest way to turn your Client Side Blazor application into a PWA with offline capabilities.
 Add this package to your build process and it will generate the files you need to become PWA compatible.
 This does not make your application ready for distribution through "App Stores" - it just provides basic PWA functionality.</Description>
-    <PackageId>Blazor.PWA.MSBuild</PackageId>
+    <PackageId>BlazorPWA.MSBuild</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/src/Blazor.PWA.MSBuild</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild</PackageProjectUrl>
     <PackageTags>Blazor,Build,MSBuild,PWA,Manifest,ServiceWorker,C#,DotNET,Web,Client</PackageTags>
-    <Product>Blazor.PWA.MSBuild</Product>
+    <Product>BlazorPWA.MSBuild</Product>
     <RepositoryUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild</RepositoryUrl>
-    <PackageIconUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/src/Blazor.PWA.MSBuild/Blazor.PWA.MSBuild-NuGet-Icon.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/raw/master/Blazor.PWA.MSBuild-NuGet-Icon.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>This is a beta release of a very basic PWA build target.
 Just by including this in the build, it can generate the basic requirements for an installable PWA for client side Blazor.

@@ -12,16 +12,16 @@ This is to be considered a Beta release - I am looking for feedback/issues/reque
 
 ## Installation
 
-Install the nuget Blazor.PWA.MsBuild
+Install the nuget BlazorPWA.MsBuild
 
 #### Package Manager:
-`Install-Package Blazor.PWA.MSBuild -Version 0.0.1-beta20190808-10`
+`Install-Package BlazorPWA.MSBuild -Version 0.0.1-beta20190808-10`
 
 #### .NET Cli:
-`dotnet add package Blazor.PWA.MSBuild --version 0.0.1-beta20190808-10`
+`dotnet add package BlazorPWA.MSBuild --version 0.0.1-beta20190808-10`
 
 #### Package Reference
-`<PackageReference Include="Blazor.PWA.MSBuild" Version="0.0.1-beta20190808-10"/>`
+`<PackageReference Include="BlazorPWA.MSBuild" Version="0.0.1-beta20190808-10"/>`
 
 ## Configuration
 
