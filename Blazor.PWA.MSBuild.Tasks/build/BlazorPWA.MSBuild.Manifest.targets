@@ -1,4 +1,5 @@
-﻿<Project>
+﻿<!-- build/BlazorPWA.MSBuild.Manifest.targets -->
+<Project>
   <Target Name="BuildServiceWorkerManifest" Condition="!Exists('$(WWWRoot)$(ManifestFileName)') Or '$(ManifestForce)'=='true'">
     <!-- bit of info in the build output -->
     <Message Importance="high" Text="Building Manifest $(ManifestFileName)" Condition="!Exists('$(WWWRoot)$(ManifestFileName)')"/>

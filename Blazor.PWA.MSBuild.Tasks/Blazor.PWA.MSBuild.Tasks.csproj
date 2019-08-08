@@ -41,19 +41,19 @@ I will add more network caching strategies, but for now it has just one - cache 
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="build\Blazor.PWA.MSBuild.Manifest.targets">
+    <Content Include="build\BlazorPWA.MSBuild.Manifest.targets">
       <PackagePath>build\</PackagePath>
       <Pack>True</Pack>
     </Content>
-    <Content Include="build\Blazor.PWA.MSBuild.ServiceWorker.targets">
+    <Content Include="build\BlazorPWA.MSBuild.ServiceWorker.targets">
       <PackagePath>build\</PackagePath>
       <Pack>True</Pack>
     </Content>
-    <Content Include="build\Blazor.PWA.MSBuild.ServiceWorkerRegister.targets">
+    <Content Include="build\BlazorPWA.MSBuild.ServiceWorkerRegister.targets">
       <PackagePath>build\</PackagePath>
       <Pack>True</Pack>
     </Content>
-    <Content Include="build\Blazor.PWA.MSBuild.targets">
+    <Content Include="build\BlazorPWA.MSBuild.targets">
       <PackagePath>build\</PackagePath>
       <Pack>True</Pack>
     </Content>

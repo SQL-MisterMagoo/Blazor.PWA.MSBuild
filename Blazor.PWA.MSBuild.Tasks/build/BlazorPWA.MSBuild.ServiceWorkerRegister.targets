@@ -1,4 +1,4 @@
-﻿<!-- build/Blazor.PWA.MSBuild.ServiceWorkerRegister.targets -->
+﻿<!-- build/BlazorPWA.MSBuild.ServiceWorkerRegister.targets -->
 <Project>
 
   <Target Name="BuildServiceWorkerInstaller" Condition="!Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)') Or '$(ServiceWorkerForce)'=='true'">

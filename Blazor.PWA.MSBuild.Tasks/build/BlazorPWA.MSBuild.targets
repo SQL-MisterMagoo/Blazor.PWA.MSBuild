@@ -1,8 +1,8 @@
-﻿<!-- build/Blazor.PWA.MSBuild.targets -->
+﻿<!-- build/BlazorPWA.MSBuild.targets -->
 <Project>
-  <Import Project="..\build\Blazor.PWA.MSBuild.ServiceWorker.targets" />
-  <Import Project="..\build\Blazor.PWA.MSBuild.ServiceWorkerRegister.targets" />
-  <Import Project="..\build\Blazor.PWA.MSBuild.Manifest.targets" />
+  <Import Project="..\build\BlazorPWA.MSBuild.ServiceWorker.targets" />
+  <Import Project="..\build\BlazorPWA.MSBuild.ServiceWorkerRegister.targets" />
+  <Import Project="..\build\BlazorPWA.MSBuild.Manifest.targets" />
 
   <PropertyGroup Label="ServiceWorker">
     <!-- The service worker file names to generate -->
