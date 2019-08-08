@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <!-- Suppresses the warnings about the package not having assemblies in lib/*/.dll.-->
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <!-- Change the default location where NuGet will put the build output -->
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>    
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Mister Magoo</Authors>
+    <Copyright>2019 SQL-MisterMagoo</Copyright>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <Description>The easiest way to turn your Client Side Blazor application into a PWA with offline capabilities.
+Add this package to your build process and it will generate the files you need to become PWA compatible.
+This does not make your application ready for distribution through "App Stores" - it just provides basic PWA functionality.</Description>
+    <PackageId>Blazor.PWA.MSBuild</PackageId>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/src/Blazor.PWA.MSBuild</PackageProjectUrl>
+    <PackageTags>Blazor,Build,MSBuild,PWA,Manifest,ServiceWorker,C#,DotNET,Web,Client</PackageTags>
+    <Product>Blazor.PWA.MSBuild</Product>
+    <RepositoryUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild</RepositoryUrl>
+    <PackageIconUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/src/Blazor.PWA.MSBuild/Blazor.PWA.MSBuild-NuGet-Icon.png</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>This is a beta release of a very basic PWA build target.
+Just by including this in the build, it can generate the basic requirements for an installable PWA for client side Blazor.
+The result is not an App Store package, it is simply the basic requirements for PWA.
+I will add more network caching strategies, but for now it has just one - cache all local assets.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt;..\README.md;">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="build\Blazor.PWA.MSBuild.Manifest.targets">
+      <PackagePath>build\</PackagePath>
+      <Pack>True</Pack>
+    </Content>
+    <Content Include="build\Blazor.PWA.MSBuild.ServiceWorker.targets">
+      <PackagePath>build\</PackagePath>
+      <Pack>True</Pack>
+    </Content>
+    <Content Include="build\Blazor.PWA.MSBuild.ServiceWorkerRegister.targets">
+      <PackagePath>build\</PackagePath>
+      <Pack>True</Pack>
+    </Content>
+    <Content Include="build\Blazor.PWA.MSBuild.targets">
+      <PackagePath>build\</PackagePath>
+      <Pack>True</Pack>
+    </Content>
+    <Content Include="Templates\**\*.js">
+      <Pack>True</Pack>
+      <PackagePath>Templates\</PackagePath>
+    </Content>
+    <Content Include="Templates\Images\**\*.*">
+      <Pack>True</Pack>
+      <PackagePath>Templates\</PackagePath>
+    </Content>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Templates\Images\" />
+  </ItemGroup>
+
+</Project>

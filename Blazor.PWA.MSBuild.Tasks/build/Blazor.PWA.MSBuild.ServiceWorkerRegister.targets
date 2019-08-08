@@ -1,0 +1,51 @@
+﻿<!-- build/Blazor.PWA.MSBuild.ServiceWorkerRegister.targets -->
+<Project>
+
+  <Target Name="BuildServiceWorkerInstaller" Condition="!Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)') Or '$(ServiceWorkerForce)'=='true'">
+    <!-- bit of info in the build output -->
+    <Message Importance="high" Text="Building Service Worker Register $(ServiceWorkerRegisterFileName)" Condition="!Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)')"/>
+    <Message Importance="high" Text="Re-Building Service Worker Register $(ServiceWorkerRegisterFileName)" Condition="Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)')"/>
+
+    <!-- Add ServiceWorkerRegister.js to index.html -->
+    <PropertyGroup Label="HomePage">
+      <IndexFile>$(WWWRoot)$(ServiceWorkerIndexUrl)</IndexFile>
+      <IndexLines>$([System.IO.File]::ReadAllText($(IndexFile)))</IndexLines>
+    </PropertyGroup>
+
+    <Message Importance="high" Text="Adding $(ServiceWorkerRegisterFileName) to $(IndexFile)"
+      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"/>
+    <WriteLinesToFile
+      File="$(IndexFile)"
+      Overwrite="true"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
+      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"/>
+
+    <!-- The "Templates" properties are used to define where to find templates for the service worker register -->
+    <PropertyGroup Label="Templates">
+      <!-- The template folder location ** probably never change ** -->
+      <ServiceWorkerRegisterTemplatePath Condition="'$(ServiceWorkerRegisterTemplatePath)' == ''">$(MSBuildThisFileDirectory)..\Templates\ServiceWorker\</ServiceWorkerRegisterTemplatePath>
+      <!-- The file that contains template code for the service worker register file -->
+      <ServiceWorkerRegisterTemplate Condition="'$(ServiceWorkerRegisterTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register.template.js</ServiceWorkerRegisterTemplate>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Implementation">
+      <!-- event fired by browser when the service worker has installed ** probably never change **-->
+      <ServiceWorkerInstalledEvent Condition="'$(ServiceWorkerInstalledEvent)'==''">installed</ServiceWorkerInstalledEvent>
+      <!-- Setup the declarations for the Service Worker Register -->
+      <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerConstants)' == ''">
+        const serviceWorkerFileName = '$(ServiceWorkerBaseURL)$(ServiceWorkerFileName)'%3B;
+        const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
+        const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
+      </ServiceWorkerRegisterConstants>
+    </PropertyGroup>
+    <ItemGroup>
+      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterTemplate)))"/>
+    </ItemGroup>
+    <WriteLinesToFile
+      File="$(WWWRoot)$(ServiceWorkerRegisterFileName)"
+      Overwrite="true"
+      Lines="$(ServiceWorkerRegisterConstants);@(ServiceWorkerRegisterTemplateLines);"
+      />
+  </Target>
+
+</Project>
