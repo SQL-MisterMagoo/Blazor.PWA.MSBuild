@@ -41,25 +41,34 @@ function showAddToHomeScreen() {
 
     pwaInstallPrompt.id = 'pwa-install-prompt';
     pwaInstallPrompt.style.position = 'absolute';
-    pwaInstallPrompt.style.bottom = '0';
+    pwaInstallPrompt.style.bottom = '1rem';
+    pwaInstallPrompt.style.left = '1rem';
+    pwaInstallPrompt.style.right = '1rem';
+    pwaInstallPrompt.style.padding = '0.3rem';
     pwaInstallPrompt.style.display = 'flex';
-    pwaInstallPrompt.style.width = '100vw';
-    pwaInstallPrompt.style.backgroundColor='darkslategrey';
-    pwaInstallPrompt.style.color='white';
-    pwaInstallPrompt.style.fontSize='2rem';
+    pwaInstallPrompt.style.backgroundColor = 'lightslategray';
+    pwaInstallPrompt.style.color = 'white';
+    pwaInstallPrompt.style.fontFamily = 'sans-serif';
+    pwaInstallPrompt.style.fontSize = '1.2rem';
+    pwaInstallPrompt.style.borderRadius = '4px';
 
-    pwaInstallButton.style.marginLeft='auto';
-    pwaInstallButton.style.width='4em';
-    pwaInstallButton.style.backgroundColor='green';
-    pwaInstallButton.style.color='white';
+    pwaInstallButton.style.marginLeft = 'auto';
+    pwaInstallButton.style.width = '4em';
+    pwaInstallButton.style.backgroundColor = '#00796B';
+    pwaInstallButton.style.color = 'white';
+    pwaInstallButton.style.border = 'none';
+    pwaInstallButton.style.borderRadius = '25px';
 
-    pwaCancelButton.style.marginLeft='0.3rem';
-    pwaCancelButton.style.backgroundColor='darkslategray';
-    pwaCancelButton.style.color='white';
+    pwaCancelButton.style.marginLeft = '0.3rem';
+    pwaCancelButton.style.width = '4em';
+    pwaCancelButton.style.backgroundColor = '#9d0d0d';
+    pwaCancelButton.style.color = 'white';
+    pwaCancelButton.style.border = 'none';
+    pwaCancelButton.style.borderRadius = '25px';
 
-    pwaInstallPrompt.innerText = 'Add to your homescreen!';
-    pwaInstallButton.innerText = 'OK';
-    pwaCancelButton.innerText = 'Ignore';
+    pwaInstallPrompt.innerText = 'Add to your homescreen?';
+    pwaInstallButton.innerText = 'ok';
+    pwaCancelButton.innerText = 'no';
 
     pwaInstallPrompt.appendChild(pwaInstallButton);
     pwaInstallPrompt.appendChild(pwaCancelButton);
