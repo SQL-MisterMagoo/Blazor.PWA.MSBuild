@@ -10,6 +10,12 @@ It currently includes a simple banner to notify the user that your application c
 
 This is to be considered a Beta release - I am looking for feedback/issues/requests.
 
+### Browser compatibility
+
+Note that chromium browsers will prompt you to install a PWA on a desktop computer.
+Firefox does not currently provide this experience on desktop.
+I don't have a Mac, but I believe Safari does not prompt on desktop either.
+
 ## Installation
 
 Install the nuget BlazorPWA.MsBuild

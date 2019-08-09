@@ -69,6 +69,10 @@ I will add more network caching strategies, but for now it has just one - cache 
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Templates\ServiceWorker\sw_register-update-alert.template.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Templates\Images\" />
   </ItemGroup>
 

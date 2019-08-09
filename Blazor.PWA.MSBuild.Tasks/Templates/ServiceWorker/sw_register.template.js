@@ -23,12 +23,6 @@
                 console.log('Service worker registration failed, error:', error));
     }
 });
-window['updateAvailable']
-    .then(isAvailable => {
-        if (isAvailable) {
-            alert("Update available. Reload the page when convenient.");
-        }
-    });
 
 window.addEventListener('beforeinstallprompt', function (e) {
     // Prevent Chrome 67 and earlier from automatically showing the prompt
