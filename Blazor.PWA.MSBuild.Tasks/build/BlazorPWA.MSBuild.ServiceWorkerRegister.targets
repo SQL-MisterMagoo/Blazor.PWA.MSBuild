@@ -26,8 +26,14 @@
       <ServiceWorkerRegisterTemplatePath Condition="'$(ServiceWorkerRegisterTemplatePath)' == ''">$(MSBuildThisFileDirectory)..\Templates\ServiceWorker\</ServiceWorkerRegisterTemplatePath>
       <!-- The file that contains template code for the service worker register file -->
       <ServiceWorkerRegisterTemplate Condition="'$(ServiceWorkerRegisterTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register.template.js</ServiceWorkerRegisterTemplate>
+      <!-- Update available alert type -->
+      <ServiceWorkerRegisterUpdateType Condition="'$(ServiceWorkerRegisterUpdateType)'==''">update-alert</ServiceWorkerRegisterUpdateType>
       <!-- The file that contains template code for the service worker "update available"  -->
-      <ServiceWorkerRegisterUpdateNotificationTemplate Condition="'$(ServiceWorkerRegisterUpdateNotificationTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register-update-alert.template.js</ServiceWorkerRegisterUpdateNotificationTemplate>
+      <ServiceWorkerRegisterUpdateTemplate Condition="'$(ServiceWorkerRegisterUpdateTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register-$(ServiceWorkerRegisterUpdateType).template.js</ServiceWorkerRegisterUpdateTemplate>
+      <!-- Update available alert type -->
+      <ServiceWorkerRegisterInstallableType Condition="'$(ServiceWorkerRegisterInstallableType)'==''">installable-banner</ServiceWorkerRegisterInstallableType>
+      <!-- The file that contains template code for the service worker "update available"  -->
+      <ServiceWorkerRegisterInstallableTemplate Condition="'$(ServiceWorkerRegisterInstallableTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register-$(ServiceWorkerRegisterInstallableType).template.js</ServiceWorkerRegisterInstallableTemplate>
     </PropertyGroup>
 
     <PropertyGroup Label="Implementation">
@@ -35,8 +41,6 @@
       <ServiceWorkerInstalledEvent Condition="'$(ServiceWorkerInstalledEvent)'==''">installed</ServiceWorkerInstalledEvent>
       <!-- Text to display when an update is available -->
       <ServiceWorkerUpdateAlertText Condition="'$(ServiceWorkerUpdateAlertText)'==''">Update available. Reload the page when convenient.</ServiceWorkerUpdateAlertText>
-      <!-- Update available alert type -->
-      <ServiceWorkerUpdateNotificationType Condition="'$(ServiceWorkerUpdateNotificationType)'==''">update-alert</ServiceWorkerUpdateNotificationType>
       <!-- Setup the declarations for the Service Worker Register -->
       <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerConstants)' == ''">
         const serviceWorkerFileName = '$(ServiceWorkerBaseURL)$(ServiceWorkerFileName)'%3B;
@@ -47,7 +51,8 @@
     </PropertyGroup>
     <ItemGroup>
       <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterTemplate)))"/>
-      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterUpdateNotificationTemplate)))"/>
+      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterUpdateTemplate)))"/>
+      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterInstallableTemplate)))"/>
     </ItemGroup>
     <WriteLinesToFile
       File="$(WWWRoot)$(ServiceWorkerRegisterFileName)"
