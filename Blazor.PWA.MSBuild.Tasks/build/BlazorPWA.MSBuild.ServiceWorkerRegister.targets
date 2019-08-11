@@ -6,20 +6,6 @@
     <Message Importance="high" Text="Building Service Worker Register $(ServiceWorkerRegisterFileName)" Condition="!Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)')"/>
     <Message Importance="high" Text="Re-Building Service Worker Register $(ServiceWorkerRegisterFileName)" Condition="Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)')"/>
 
-    <!-- Add ServiceWorkerRegister.js to index.html -->
-    <PropertyGroup Label="HomePage">
-      <IndexFile>$(WWWRoot)$(ServiceWorkerIndexUrl)</IndexFile>
-      <IndexLines>$([System.IO.File]::ReadAllText($(IndexFile)))</IndexLines>
-    </PropertyGroup>
-
-    <Message Importance="high" Text="Adding $(ServiceWorkerRegisterFileName) to $(IndexFile)"
-      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"/>
-    <WriteLinesToFile
-      File="$(IndexFile)"
-      Overwrite="true"
-      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
-      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"/>
-
     <!-- The "Templates" properties are used to define where to find templates for the service worker register -->
     <PropertyGroup Label="Templates">
       <!-- The template folder location ** probably never change ** -->
@@ -34,9 +20,6 @@
       <ServiceWorkerRegisterInstallableType Condition="'$(ServiceWorkerRegisterInstallableType)'==''">installable-banner</ServiceWorkerRegisterInstallableType>
       <!-- The file that contains template code for the service worker "update available"  -->
       <ServiceWorkerRegisterInstallableTemplate Condition="'$(ServiceWorkerRegisterInstallableTemplate)' == ''">$(ServiceWorkerRegisterTemplatePath)sw_register-$(ServiceWorkerRegisterInstallableType).template.js</ServiceWorkerRegisterInstallableTemplate>
-    </PropertyGroup>
-
-    <PropertyGroup Label="Implementation">
       <!-- event fired by browser when the service worker has installed ** probably never change **-->
       <ServiceWorkerInstalledEvent Condition="'$(ServiceWorkerInstalledEvent)'==''">installed</ServiceWorkerInstalledEvent>
       <!-- Text to display when an update is available -->
@@ -46,19 +29,55 @@
         const serviceWorkerFileName = '$(ServiceWorkerBaseURL)$(ServiceWorkerFileName)'%3B;
         const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
         const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
-        const updateAlertMessage = '$(ServiceWorkerUpdateAlertText)'%3B; 
+        const updateAlertMessage = '$(ServiceWorkerUpdateAlertText)'%3B;
       </ServiceWorkerRegisterConstants>
     </PropertyGroup>
     <ItemGroup>
-      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterTemplate)))"/>
-      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterUpdateTemplate)))"/>
-      <ServiceWorkerRegisterTemplateLines Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterInstallableTemplate)))"/>
+      <!-- Read the Service Worker Register template-->
+      <ServiceWorkerRegisterTemplateLines
+        Condition="Exists('$(ServiceWorkerRegisterTemplate)')"
+        Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterTemplate)))"/>
+      <!-- Read the Service Worker Update template-->
+      <ServiceWorkerRegisterTemplateLines
+        Condition="Exists('$(ServiceWorkerRegisterUpdateTemplate)')"
+        Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterUpdateTemplate)))"/>
+      <!-- Read the Service Worker Installable template-->
+      <ServiceWorkerRegisterTemplateLines
+        Condition="Exists('$(ServiceWorkerRegisterInstallableTemplate)')"
+        Include="$([System.IO.File]::ReadAllText($(ServiceWorkerRegisterInstallableTemplate)))"/>
     </ItemGroup>
+    <!-- (Re)Create the ServiceWorkerRegister.js file -->
     <WriteLinesToFile
+      Condition="'$(ServiceWorkerRegisterConstants)@(ServiceWorkerRegisterTemplateLines)' != ''"
       File="$(WWWRoot)$(ServiceWorkerRegisterFileName)"
       Overwrite="true"
       Lines="$(ServiceWorkerRegisterConstants);@(ServiceWorkerRegisterTemplateLines);"
       />
+    <!-- Call the target for adding the ServiceWorkerRegister.js file to index.html -->
+    <CallTarget
+      Condition="Exists('$(WWWRoot)$(ServiceWorkerRegisterFileName)')"
+      Targets="_ServiceWorkerUpdateIndex"
+      />
   </Target>
 
+  <Target Name="_ServiceWorkerUpdateIndex">
+    <!-- Add ServiceWorkerRegister.js to index.html -->
+    <PropertyGroup>
+      <IndexFile>$(WWWRoot)$(ServiceWorkerIndexUrl)</IndexFile>
+      <IndexLines>$([System.IO.File]::ReadAllText($(IndexFile)))</IndexLines>
+    </PropertyGroup>
+
+    <Message 
+      Importance="high" 
+      Text="Adding $(ServiceWorkerRegisterFileName) to $(IndexFile)"
+      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"
+      />
+    <WriteLinesToFile
+      File="$(IndexFile)"
+      Overwrite="true"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
+      Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"
+      />
+
+  </Target>
 </Project>
