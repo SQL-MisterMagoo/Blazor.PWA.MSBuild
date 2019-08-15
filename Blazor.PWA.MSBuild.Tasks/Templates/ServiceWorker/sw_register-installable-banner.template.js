@@ -6,15 +6,15 @@ function showAddToHomeScreen() {
 
     pwaInstallPrompt.id = 'pwa-install-prompt';
     pwaInstallPrompt.style.position = 'absolute';
-    pwaInstallPrompt.style.bottom = '1rem';
-    pwaInstallPrompt.style.left = '1rem';
-    pwaInstallPrompt.style.right = '1rem';
-    pwaInstallPrompt.style.padding = '0.3rem';
+    pwaInstallPrompt.style.bottom = '0.1rem';
+    pwaInstallPrompt.style.left = '0.1rem';
+    pwaInstallPrompt.style.right = '0.1rem';
+    pwaInstallPrompt.style.padding = '0.5rem';
     pwaInstallPrompt.style.display = 'flex';
     pwaInstallPrompt.style.backgroundColor = 'lightslategray';
     pwaInstallPrompt.style.color = 'white';
     pwaInstallPrompt.style.fontFamily = 'sans-serif';
-    pwaInstallPrompt.style.fontSize = '1.2rem';
+    pwaInstallPrompt.style.fontSize = '1.3rem';
     pwaInstallPrompt.style.borderRadius = '4px';
 
     pwaInstallButton.style.marginLeft = 'auto';

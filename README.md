@@ -59,10 +59,75 @@ The web manifest has properties for the application name, which are taken, by de
 
 There are dozens of Properties in the *targets* files supplied by this package - you *could* customise them all, but you probably don't need to, so proceed with caution.
 
+### Handing the "Installable PWA" event in Blazor
+
+When a Chromium based browser detects an installable PWA, it fires an event that your application 
+can use to display a prompt to the user.
+
+The default for this package is to simply display a bar at the bottom of the
+browser window prompting the user to install your app.
+
+You can customise the message, or you can override that and pass the event
+over to your Blazor application - by setting the property 
+**`ServiceWorkerRegisterInstallableType`** to **`installable-blazor`** in your **.csproj**
+
+This will generate code in your **ServiceWorkerRegister.js** to make an
+interop call to Blazor when the **beforeinstallprompt** event fires in the browser.
+
+In your Blazor application, you will need code to handle this call
+- by default it will use the **ProjectName** and method name **"InstallPWA"** to 
+ perform a `DotNet.InvokeAsync()`
+- These values can be customised using the properties **`ServiceWorkerBlazorAssembly`** 
+ and  **`ServiceWorkerBlazorInstallMethod`**
+
+Here is an example Blazor implementation which could be added to **MainLayout**
+
+``` HTML
+@if (Installable)
+{
+    <div class="fixed-bottom w-100 alert alert-dark d-flex align-items-center" @onclick="InstallClicked">
+        <h3>Install this app?</h3>
+        <small class="ml-auto mr-1 rounded-pill"><button @onclick="@(()=>Installable=false)">X</button></small>
+    </div>
+}
+```
+This will display a bar at the bottom of the browser, which can be dismissed or clicked.
+
+
+The `code` section has the `JSInvokable` method **InstallPWS** that we called
+earlier from the browser and some supporting code to toggle the display and 
+make an interop call back to the browser to trigger the app installation.
+``` C#
+@code
+{
+    [Inject] IJSRuntime JSRuntime { get; set; }
+
+    static bool Installable = false;
+    static Action ml;
+    protected override void OnInitialized()
+    {
+        ml = () => InvokeAsync(StateHasChanged);
+    }
+    [JSInvokable]
+    public static Task InstallPWA()
+    {
+        Installable = true;
+        ml.Invoke();
+        return Task.CompletedTask;
+    }
+    Task InstallClicked(UIMouseEventArgs args)
+    {
+        Installable = false;
+        return JSRuntime.InvokeAsync<object>("BlazorPWA.installPWA");
+    }
+}
+```
+
 ## Roadmap
 
 - [ ] At the moment, there is only one choice for caching strategy - Cache First/Network Fallback - I will add more (https://developers.google.com/web/ilt/pwa/introduction-to-progressive-web-app-architectures#caching_strategies_supported_by_sw-toolbox)
-- [ ] The current methods for alerting the user are semi-hard coded (you can adjust them manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
+- [x] The current method for alerting the user that the app is installable is semi-hard coded (you can adjust it manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
+- [ ] The current method for alerting the user when an update is available is semi-hard coded (you can adjust it manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
 - [ ] Document all of the configuration Properties (they all have comments in the code - so you are able to understand their purpose without documentation...)
 - [ ] Bug fixes
 

@@ -69,7 +69,9 @@ I will add more network caching strategies, but for now it has just one - cache 
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Templates\ServiceWorker\sw_register-beforeinstallprompt.template.js" />
     <None Remove="Templates\ServiceWorker\sw_register-installable-banner.template.js" />
+    <None Remove="Templates\ServiceWorker\sw_register-installable-blazor.template.js" />
     <None Remove="Templates\ServiceWorker\sw_register-update-alert.template.js" />
   </ItemGroup>
 
