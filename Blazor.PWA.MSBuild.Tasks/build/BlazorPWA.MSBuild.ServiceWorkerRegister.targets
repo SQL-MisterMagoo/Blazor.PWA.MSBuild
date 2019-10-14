@@ -93,7 +93,8 @@
   <Target Name="_ServiceWorkerUpdateIndex">
     <!-- Add ServiceWorkerRegister.js to index.html -->
     <PropertyGroup>
-      <IndexFile>$(WWWRoot)$(ServiceWorkerIndexUrl)</IndexFile>
+      <IndexFile Condition="'$(BlazorProjectType)' == 'CSB'">$(WWWRoot)$(ProjectIndexPage)</IndexFile>
+      <IndexFile Condition="'$(BlazorProjectType)' == 'SSB'">$(ProjectHomePage)</IndexFile>
       <IndexLines>$([System.IO.File]::ReadAllText($(IndexFile)))</IndexLines>
     </PropertyGroup>
 

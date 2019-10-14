@@ -4,16 +4,22 @@
   <Import Project="..\build\BlazorPWA.MSBuild.ServiceWorkerRegister.targets" />
   <Import Project="..\build\BlazorPWA.MSBuild.Manifest.targets" />
 
+  <PropertyGroup Label="ProjectTypes">
+    <!-- Project type -->
+    <BlazorProjectType Condition="'$(BlazorProjectType)' == '' AND '$(TargetFramework)' == 'netcoreapp3.0'">SSB</BlazorProjectType>
+    <BlazorProjectType Condition="'$(BlazorProjectType)' == '' AND '$(TargetFramework)' == 'netstandard2.0'">CSB</BlazorProjectType>
+  </PropertyGroup>
+
   <PropertyGroup Label="ServiceWorker">
     <!-- The service worker file names to generate -->
     <ServiceWorkerFileName Condition="'$(ServiceWorkerFileName)' == ''">ServiceWorker.js</ServiceWorkerFileName>
     <ServiceWorkerRegisterFileName Condition="'$(ServiceWorkerRegisterFileName)' == ''">ServiceWorkerRegister.js</ServiceWorkerRegisterFileName>
 
     <!-- The PWA strategy to implement in the service worker -->
-    <!-- Currently only supports offline-first -->
+    <!-- Currently only supports offline-first or none -->
+    <ServiceWorkerPattern Condition="'$(BlazorProjectType)' == 'CSB' AND '$(ServiceWorkerPattern)' == ''">offline-first</ServiceWorkerPattern>
+    <ServiceWorkerPattern Condition="'$(BlazorProjectType)' == 'SSB' AND '$(ServiceWorkerPattern)' == ''">none</ServiceWorkerPattern>
     <ServiceWorkerPattern Condition="'$(ServiceWorkerPattern)' == ''">offline-first</ServiceWorkerPattern>
-    <!-- Remove this when we implement more patterns -->
-    <ServiceWorkerPattern>offline-first</ServiceWorkerPattern>
 
     <!-- The Cache name and version together form the name of the application browser cache e.g. blazor-cache-v1 -->
     <ServiceWorkerCacheName Condition="'$(ServiceWorkerCacheName)' == ''">blazor-cache</ServiceWorkerCacheName>
@@ -22,8 +28,11 @@
     <!-- The "home route" url for the application -->
     <ServiceWorkerBaseUrl Condition="'$(ServiceWorkerBaseUrl)' == ''">/</ServiceWorkerBaseUrl>
 
-    <!-- The actual home page served up for the base URL - so we have a way to cache it -->
-    <ServiceWorkerIndexUrl Condition="'$(ServiceWorkerIndexUrl)' == ''">index.html</ServiceWorkerIndexUrl>
+    <!-- The CSB home page served up for the base URL -->
+    <ProjectIndexPage Condition="'$(ProjectIndexPage)' == ''">index.html</ProjectIndexPage>
+
+    <!-- The SSB home page served up for the base URL -->
+    <ProjectHomePage Condition="'$(ProjectHomePage)' == ''">Pages/_Host.cshtml</ProjectHomePage>
 
   </PropertyGroup>
 
@@ -54,7 +63,7 @@
           BeforeTargets="$(CreatePWABeforeTargets)"
           Condition="'$(ServiceWorkerPattern)'!='' AND '$(ServiceWorkerCacheName)'!='' AND '$(ServiceWorkerCacheVersion)'!='' AND (!Exists('$(WWWRoot)$(ServiceWorkerFileName)') OR '$(ServiceWorkerForce)'=='true')">
 
-    <Message Importance="high" Text="Building Your PWA: Type: $(ServiceWorkerPattern) CacheName: $(ServiceWorkerCacheName) CacheVersion: $(ServiceWorkerCacheVersion)"/>
+    <Message Importance="high" Text="Building Your $(BlazorProjectType) PWA: Type: $(ServiceWorkerPattern) CacheName: $(ServiceWorkerCacheName) CacheVersion: $(ServiceWorkerCacheVersion)"/>
     <CallTarget Targets="BuildServiceWorkerInstaller"/>
     <CallTarget Targets="BuildServiceWorkerManifest"/>
     <CallTarget Targets="BuildServiceWorker"/>

@@ -71,10 +71,11 @@
     
     <!-- Add manifest to index.html -->
     <PropertyGroup>
-      <IndexFile>$(WWWRoot)$(ServiceWorkerIndexUrl)</IndexFile>
+      <IndexFile Condition="'$(BlazorProjectType)' == 'CSB'">$(WWWRoot)$(ProjectIndexPage)</IndexFile>
+      <IndexFile Condition="'$(BlazorProjectType)' == 'SSB'">$(ProjectHomePage)</IndexFile>
       <IndexLines>$([System.IO.File]::ReadAllText($(IndexFile)))</IndexLines>
     </PropertyGroup>
-
+    <Message Importance="high" Text="Blazor Project Type detected as $(BlazorProjectType)"/>
     <Message Importance="high" Text="Adding manifest to $(IndexFile)"
       Condition="'$(IndexLines.Contains(rel=&quot;manifest&quot;))'=='false'"/>
     

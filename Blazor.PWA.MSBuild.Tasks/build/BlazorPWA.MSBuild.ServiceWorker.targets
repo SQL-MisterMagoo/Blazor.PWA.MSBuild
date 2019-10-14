@@ -48,15 +48,25 @@
       </ServiceWorkerPreCacheGeneratedFiles>
 
       <!-- Setup the declarations for the Service Worker -->
-      <ServiceWorkerConstants Condition="'$(ServiceWorkerConstants)' == ''">
+      <ServiceWorkerConstants Condition="'$(ServiceWorkerConstants)' == '' AND '$(BlazorProjectType)' == 'CSB'">
         const baseURL = '$(ServiceWorkerBaseURL)'%3B;
-        const indexURL = '$(ServiceWorkerBaseUrl)$(ServiceWorkerIndexURL)'%3B;
+        const indexURL = '$(ServiceWorkerBaseUrl)$(ProjectIndexPage)'%3B;
         const networkFetchEvent = '$(ServiceWorkerNetworkFetchEvent)'%3B;
         const swInstallEvent = '$(ServiceWorkerInstallEvent)'%3B;
         const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
         const swActivateEvent = '$(ServiceWorkerActivateEvent)'%3B;
         const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
         const staticCacheName = '$(ServiceWorkerCacheName)-v$(ServiceWorkerCacheVersion)'%3B;
+      </ServiceWorkerConstants>
+
+      <!-- Setup the declarations for the Service Worker -->
+      <ServiceWorkerConstants Condition="'$(ServiceWorkerConstants)' == '' AND '$(BlazorProjectType)' == 'SSB'">
+        const baseURL = '$(ServiceWorkerBaseURL)'%3B;
+        const indexURL = '$(ServiceWorkerBaseUrl)$(ProjectHomePage)'%3B;
+        const networkFetchEvent = '$(ServiceWorkerNetworkFetchEvent)'%3B;
+        const swInstallEvent = '$(ServiceWorkerInstallEvent)'%3B;
+        const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
+        const swActivateEvent = '$(ServiceWorkerActivateEvent)'%3B;
       </ServiceWorkerConstants>
     </PropertyGroup>
 
@@ -69,7 +79,7 @@
       <!-- The file that contains template code for the network fetch event in the service worker -->
       <ServiceWorkerTemplateNetwork Condition="'$(ServiceWorkerTemplateNetwork)' == ''">$(ServiceWorkerTemplatePath)sw_$(ServiceWorkerNetworkFetchEvent)-$(ServiceWorkerPattern).template.js</ServiceWorkerTemplateNetwork>
     </PropertyGroup>
-    <Message Importance="high" Text="Exclude:;@(ServiceWorkerPreCacheExcludeFiles);@(ServiceWorkerPreCacheExcludeReleaseFiles);"/>
+
     <ItemGroup>
       <!-- Build a list of files to pre-cache -->
       <DistFiles Include="$(ServiceWorkerPreCacheIncludeFiles);" />
@@ -92,10 +102,12 @@
     <WriteLinesToFile File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="true"
                       Lines="$(ServiceWorkerConstants)" />
-    <WriteLinesToFile File="$(WWWRoot)$(ServiceWorkerFileName)"
+    <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
+                      File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"
                       Lines="const requiredFiles = [;@(DistFiles -> '&quot;/%(RecursiveDir)%(FileName)%(Extension)&quot;'->Replace('\','/'),',%0D%0A');]%3B;" />
-    <WriteLinesToFile File="$(WWWRoot)$(ServiceWorkerFileName)"
+    <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
+                      File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"
                       Lines="@(InstallTemplateLines);" />
     <WriteLinesToFile File="$(WWWRoot)$(ServiceWorkerFileName)"
