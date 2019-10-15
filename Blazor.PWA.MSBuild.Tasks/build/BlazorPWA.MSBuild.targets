@@ -6,6 +6,7 @@
 
   <PropertyGroup Label="ProjectTypes">
     <!-- Project type -->
+    <BlazorProjectType Condition="'$(BlazorProjectType)' == '' AND '$(TargetFramework)' == 'netcoreapp3.1'">SSB</BlazorProjectType>
     <BlazorProjectType Condition="'$(BlazorProjectType)' == '' AND '$(TargetFramework)' == 'netcoreapp3.0'">SSB</BlazorProjectType>
     <BlazorProjectType Condition="'$(BlazorProjectType)' == '' AND '$(TargetFramework)' == 'netstandard2.0'">CSB</BlazorProjectType>
   </PropertyGroup>

@@ -1,14 +1,14 @@
 ﻿# Blazor PWA Builder - MSBuild
 
-The easiest way to turn your Client Side Blazor project into a Progressive Web App (PWA).
+The easiest way to turn your Server Side And Client Side Blazor projects into Progressive Web Apps (PWA).
 
 This project, when added to your build process, will generate the required files to enable basic PWA abilities for your project.
 
-It generates a manifest.json, a Service Worker with pre-caching of all required files and an installer for the Service Worker.
+It generates a manifest.json, a Service Worker with pre-caching of all required files (Blazor WebAssembly only) and an installer for the Service Worker.
 
-It currently includes a simple banner to notify the user that your application can be installed, and a simple alert to notify users when your application has been updated.
+It currently includes a simple banner, by default, to notify the user that your application can be installed, and a simple alert to notify users when your application has been updated (CSB Only).
 
-This is to be considered a Beta release - I am looking for feedback/issues/requests.
+This is now an official release - I am looking for feedback/issues/requests.
 
 ### Browser compatibility
 
