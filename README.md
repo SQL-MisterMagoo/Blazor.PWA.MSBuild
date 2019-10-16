@@ -122,6 +122,40 @@ make an interop call back to the browser to trigger the app installation.
     }
 }
 ```
+### Excluding files from the cache (WebAssembly projects)
+Due to the way Blazor WebAssembly projects build, some of the required properties we use to generate a PWA are not available until post-build.
+
+So, to ensure a smooth customisation, we recommend using a custom **Target** in your csproj (or as a separate file which you include in the build process).
+
+There are two **`Properties`** that you can customise to exclude files from the cache.
+
+- **`ServiceWorkerPreCacheExcludeFiles`** - by default this will exclude any files under `dist\_content` and any files in `WWWRoot` that start with a dot. 
+File patterns listed here will be evaluated after build and excluded from the Service Worker cache. 
+This property is used in both **Debug** and **Release** builds.
+
+
+- **`ServiceWorkerPreCacheExcludeReleaseFiles`** - by default this will exclude any `.pdb` files. This property is only used if you are building in **Release** mode. 
+
+You can add extra files to these **`Properties`** by adding a custom target to your project
+
+```
+  <Target Name="PWACustomise" BeforeTargets="CreatePWA">
+    <PropertyGroup>
+      <ServiceWorkerPreCacheExcludeFiles>
+        $(OutputPath)dist\_redist\**\*.*;
+      </ServiceWorkerPreCacheExcludeFiles>
+    </PropertyGroup>
+    <Message Importance="high" Text="Removing: $(ServiceWorkerPreCacheExcludeFiles)"/>
+  </Target>
+```
+
+The `Name` can be anything you like, but is required by `MSBuild`.
+
+`$(OutputPath)dist` is the path to the distribution folder for a **Blazor WebAssembly** build.
+
+So, this example is excluding all files under the `_redist` folder from the Service Worker Cache.
+
+
 
 ## Roadmap
 
