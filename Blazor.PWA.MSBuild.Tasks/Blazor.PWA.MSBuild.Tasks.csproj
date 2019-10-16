@@ -10,7 +10,7 @@
     <Authors>Mister Magoo</Authors>
     <Copyright>2019 SQL-MisterMagoo</Copyright>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <Description>The easiest way to turn your Client Side Blazor application into a PWA with offline capabilities.
+    <Description>The easiest way to turn your Blazor application into a PWA with offline capabilities.
 Add this package to your build process and it will generate the files you need to become PWA compatible.
 This does not make your application ready for distribution through "App Stores" - it just provides basic PWA functionality.</Description>
     <PackageId>BlazorPWA.MSBuild</PackageId>
@@ -21,12 +21,13 @@ This does not make your application ready for distribution through "App Stores" 
     <PackageTags>Blazor,Build,MSBuild,PWA,Manifest,ServiceWorker,C#,DotNET,Web,Client</PackageTags>
     <Product>BlazorPWA.MSBuild</Product>
     <RepositoryUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild</RepositoryUrl>
-    <PackageIconUrl>https://github.com/SQL-MisterMagoo/Blazor.PWA.MSBuild/raw/master/Blazor.PWA.MSBuild-NuGet-Icon.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>This is a beta release of a very basic PWA build target.
-Just by including this in the build, it can generate the basic requirements for an installable PWA for client side Blazor.
+    <PackageReleaseNotes>This is a very basic PWA build target.
+Just by including this in the build, it can generate the basic requirements for an installable PWA for Blazor.
 The result is not an App Store package, it is simply the basic requirements for PWA.
-I will add more network caching strategies, but for now it has just one - cache all local assets.</PackageReleaseNotes>
+I will add more network caching strategies, but for now it has just one for CSB - cache all local assets.</PackageReleaseNotes>
+    <PackageIcon>Blazor.PWA.MSBuild-NuGet-Icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +35,10 @@ I will add more network caching strategies, but for now it has just one - cache 
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\Blazor.PWA.MSBuild-NuGet-Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\LICENSE.txt;..\README.md;">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
