@@ -1,3 +1,7 @@
+#### 11/11/2019
+
+- Added new **Property** **`ServiceWorkerIgnoreHosts`** - used to prevent service worker installation on specific hosts e.g. localhost
+ 
 #### 16/10/2019
 
 - Added new **Property** **`BlazorProjectType`** - used to select the type of Blazor project (SSB/CSB). This property will auto-configure but can be overridden in your csproj file in cases where auto-configure is wrong.

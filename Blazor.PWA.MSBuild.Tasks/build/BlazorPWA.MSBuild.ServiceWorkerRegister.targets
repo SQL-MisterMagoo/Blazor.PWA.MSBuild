@@ -39,6 +39,10 @@
         const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
         const updateAlertMessage = '$(ServiceWorkerUpdateAlertText)'%3B;
       </ServiceWorkerRegisterConstants>
+      <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerIgnoreHosts)' != ''">
+        $(ServiceWorkerRegisterConstants);
+        const ignoreHosts = [$(ServiceWorkerIgnoreHosts)]%3B;
+      </ServiceWorkerRegisterConstants>
       <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerRegisterInstallableType)' == 'installable-blazor'">
         $(ServiceWorkerRegisterConstants);
         const blazorAssembly = '$(ServiceWorkerBlazorAssembly)'%3B;

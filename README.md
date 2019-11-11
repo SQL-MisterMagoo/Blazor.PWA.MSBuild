@@ -155,15 +155,30 @@ The `Name` can be anything you like, but is required by `MSBuild`.
 
 So, this example is excluding all files under the `_redist` folder from the Service Worker Cache.
 
+### Prevent PWA installation / caching on localhost (or any host)
 
+If you want to exclude *localhost* (or any host) so that the developer inner loop is not affected, you can now use the **`ServiceWorkerIgnoreHosts`** property.
+
+Add it to you `csproj` file under `PropertyGroup` and list the hosts you want to exclude.
+
+``` XML
+  <PropertyGroup>
+    <ServiceWorkerIgnoreHosts>'localhost','127.0.0.1','::1','KarensPC'</ServiceWorkerIgnoreHosts>
+  </PropertyGroup>
+```
+
+The service worker will not register itself when the `hostname` matches anything in the list.
+
+*Note: the single quotes around each hostname are required for now*
 
 ## Roadmap
 
 - [ ] At the moment, there is only one choice for caching strategy - Cache First/Network Fallback - I will add more (https://developers.google.com/web/ilt/pwa/introduction-to-progressive-web-app-architectures#caching_strategies_supported_by_sw-toolbox)
 - [x] The current method for alerting the user that the app is installable is semi-hard coded (you can adjust it manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
-- [ ] The current method for alerting the user when an update is available is semi-hard coded (you can adjust it manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
+- [x] The current method for alerting the user when an update is available is semi-hard coded (you can adjust it manually after generation) - this will change to allow hooks/callbacks into Blazor via project properties
 - [ ] Document all of the configuration Properties (they all have comments in the code - so you are able to understand their purpose without documentation...)
 - [ ] Bug fixes
+- [x] Allow hosts exclusions - so working on localhost can avoid PWA caching
 
 ## Contribute
 
