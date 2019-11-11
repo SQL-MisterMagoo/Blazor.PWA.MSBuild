@@ -21,13 +21,13 @@ I don't have a Mac, but I believe Safari does not prompt on desktop either.
 Install the nuget BlazorPWA.MsBuild
 
 #### Package Manager:
-`Install-Package BlazorPWA.MSBuild -Version 1.0.0`
+`Install-Package BlazorPWA.MSBuild -Version 1.0.1`
 
 #### .NET Cli:
-`dotnet add package BlazorPWA.MSBuild --version 1.0.0`
+`dotnet add package BlazorPWA.MSBuild --version 1.0.1`
 
 #### Package Reference
-`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.0"/>`
+`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.1"/>`
 
 ## Configuration
 
