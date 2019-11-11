@@ -1,4 +1,10 @@
 ﻿window.updateAvailable = new Promise(function (resolve, reject) {
+    var { hostname } = window.location;
+    if (typeof ignoreHosts !== 'undefined') {
+        if (ignoreHosts.includes(hostname)) {
+            return;
+        }
+    }
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register(serviceWorkerFileName)
             .then(function (registration) {
