@@ -105,7 +105,7 @@
     <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
                       File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"
-                      Lines="const requiredFiles = [;@(DistFiles -> '&quot;/%(RecursiveDir)%(FileName)%(Extension)&quot;'->Replace('\','/'),',%0D%0A');]%3B;" />
+                      Lines="const requiredFiles = [;@(DistFiles -> '&quot;/%(ServiceWorkerBaseURL)%(FileName)%(Extension)&quot;'->Replace('\','/'),',%0D%0A');]%3B;" />
     <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
                       File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"
