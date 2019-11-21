@@ -110,7 +110,7 @@
     <WriteLinesToFile
       File="$(IndexFile)"
       Overwrite="true"
-      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerBaseURL)$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerBaseUrl)$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
       Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"
       />
 

@@ -49,7 +49,7 @@
 
       <!-- Setup the declarations for the Service Worker -->
       <ServiceWorkerConstants Condition="'$(ServiceWorkerConstants)' == '' AND '$(BlazorProjectType)' == 'CSB'">
-        const baseURL = '$(ServiceWorkerBaseURL)'%3B;
+        const baseURL = '$(ServiceWorkerBaseUrl)'%3B;
         const indexURL = '$(ServiceWorkerBaseUrl)$(ProjectIndexPage)'%3B;
         const networkFetchEvent = '$(ServiceWorkerNetworkFetchEvent)'%3B;
         const swInstallEvent = '$(ServiceWorkerInstallEvent)'%3B;
@@ -61,7 +61,7 @@
 
       <!-- Setup the declarations for the Service Worker -->
       <ServiceWorkerConstants Condition="'$(ServiceWorkerConstants)' == '' AND '$(BlazorProjectType)' == 'SSB'">
-        const baseURL = '$(ServiceWorkerBaseURL)'%3B;
+        const baseURL = '$(ServiceWorkerBaseUrl)'%3B;
         const indexURL = '$(ServiceWorkerBaseUrl)$(ProjectHomePage)'%3B;
         const networkFetchEvent = '$(ServiceWorkerNetworkFetchEvent)'%3B;
         const swInstallEvent = '$(ServiceWorkerInstallEvent)'%3B;
@@ -105,7 +105,7 @@
     <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
                       File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"
-                      Lines="const requiredFiles = [;@(DistFiles -> '&quot;/%(ServiceWorkerBaseURL)%(RecursiveDir)%(FileName)%(Extension)&quot;'->Replace('\','/'),',%0D%0A');]%3B;" />
+                      Lines="const requiredFiles = [;@(DistFiles -> '&quot;/%(ServiceWorkerBaseUrl)%(RecursiveDir)%(FileName)%(Extension)&quot;'->Replace('\','/'),',%0D%0A');]%3B;" />
     <WriteLinesToFile Condition="'$(BlazorProjectType)' == 'CSB'"
                       File="$(WWWRoot)$(ServiceWorkerFileName)"
                       Overwrite="false"

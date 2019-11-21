@@ -82,7 +82,7 @@
     <WriteLinesToFile 
       File="$(IndexFile)" 
       Overwrite="true" 
-      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;link href=&quot;$(ManifestBaseURL)$(ManifestFileName)&quot; rel=&quot;manifest&quot;/&gt;%0D%0A&lt;/head&gt;'))"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;link href=&quot;$(ManifestBaseUrl)$(ManifestFileName)&quot; rel=&quot;manifest&quot;/&gt;%0D%0A&lt;/head&gt;'))"
       Condition="'$(IndexLines.Contains(rel=&quot;manifest&quot;))'=='false'"/>
   </Target>
 </Project>
