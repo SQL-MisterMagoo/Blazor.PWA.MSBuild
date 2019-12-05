@@ -34,7 +34,7 @@
       <ServiceWorkerBlazorInstallMethod Condition="'$(ServiceWorkerBlazorInstallMethod)'==''">PWAInstallable</ServiceWorkerBlazorInstallMethod>
       <!-- Setup the declarations for the Service Worker Register -->
       <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerRegisterConstants)' == ''">
-        const serviceWorkerFileName = '$(ServiceWorkerBaseURL)$(ServiceWorkerFileName)'%3B;
+        const serviceWorkerFileName = '$(ServiceWorkerBaseUrl)$(ServiceWorkerFileName)'%3B;
         const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
         const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
         const updateAlertMessage = '$(ServiceWorkerUpdateAlertText)'%3B;
