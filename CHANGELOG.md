@@ -1,3 +1,13 @@
+#### 06/12/2019
+
+- PR #5 from @chucker merged with these changes
+- Bug: **Property** **`ManifestBaseUrl`** - used to specify the base Url in the manifest.json was not being used in the index `<head>` link for **manifest.json**
+- Bug: **Property** **`ServiceWorkerBaseUrl`** - used to specify the base Url in the ServiceWorker was not being used in the _required files_ list.
+- Bug: **Property** **`ServiceWorkerBaseUrl`** - used to specify the base Url in the ServiceWorker was not being used in the index `<head>` link for **ServiceWorker.js**
+- Also @SQL-MisterMagoo 
+- Added code to automatically add leading and trailing slashes to **Property** **`ManifestBaseUrl`** 
+- Added code to automatically add leading and trailing slashes to **Property** **`ServiceWorkerBaseUrl`** 
+ 
 #### 11/11/2019
 
 - Added new **Property** **`ServiceWorkerIgnoreHosts`** - used to prevent service worker installation on specific hosts e.g. localhost

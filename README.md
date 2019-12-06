@@ -21,13 +21,13 @@ I don't have a Mac, but I believe Safari does not prompt on desktop either.
 Install the nuget BlazorPWA.MsBuild
 
 #### Package Manager:
-`Install-Package BlazorPWA.MSBuild -Version 1.0.1`
+`Install-Package BlazorPWA.MSBuild -Version 1.0.2`
 
 #### .NET Cli:
-`dotnet add package BlazorPWA.MSBuild --version 1.0.1`
+`dotnet add package BlazorPWA.MSBuild --version 1.0.2`
 
 #### Package Reference
-`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.1"/>`
+`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.2"/>`
 
 ## Configuration
 
@@ -170,6 +170,40 @@ Add it to you `csproj` file under `PropertyGroup` and list the hosts you want to
 The service worker will not register itself when the `hostname` matches anything in the list.
 
 *Note: the single quotes around each hostname are required for now*
+
+### Handle different base Urls for different configurations
+
+Sample csproj file for two different base Urls
+
+``` XML
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ManifestForce>true</ManifestForce>
+    <ServiceWorkerForce>true</ServiceWorkerForce>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <ServiceWorkerBaseUrl>prod</ServiceWorkerBaseUrl>
+    <ManifestBaseUrl>prod</ManifestBaseUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <ServiceWorkerBaseUrl>dev</ServiceWorkerBaseUrl>
+    <ManifestBaseUrl>dev</ManifestBaseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BlazorPWA.MSBuild" Version="1.0.1-beta20191206-002218">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
+```
+This project file use **`ManifestForce`** and **`ServiceWorkerForce`** to ensure that the **manifest.json** and **ServiceWorker.js** files are rebuilt - otherwise they would not change when you changed configuration.
 
 ## Roadmap
 
