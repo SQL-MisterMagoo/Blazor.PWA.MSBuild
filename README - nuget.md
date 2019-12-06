@@ -15,13 +15,13 @@ This is now an official release - I am looking for feedback/issues/requests.
 Install the nuget BlazorPWA.MsBuild
 
 #### Package Manager:
-`Install-Package BlazorPWA.MSBuild -Version 1.0.1`
+`Install-Package BlazorPWA.MSBuild -Version 1.0.2`
 
 #### .NET Cli:
-`dotnet add package BlazorPWA.MSBuild --version 1.0.1`
+`dotnet add package BlazorPWA.MSBuild --version 1.0.2`
 
 #### Package Reference
-`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.1"/>`
+`<PackageReference Include="BlazorPWA.MSBuild" Version="1.0.2"/>`
 
 ## Configuration
 
