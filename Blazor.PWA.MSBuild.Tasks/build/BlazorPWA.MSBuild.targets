@@ -28,6 +28,8 @@
 
     <!-- The "home route" url for the application -->
     <ServiceWorkerBaseUrl Condition="'$(ServiceWorkerBaseUrl)' == ''">/</ServiceWorkerBaseUrl>
+    <ServiceWorkerBaseUrl Condition="!'$(ServiceWorkerBaseUrl.StartsWith(/))'">/$(ServiceWorkerBaseUrl)</ServiceWorkerBaseUrl>
+    <ServiceWorkerBaseUrl Condition="!'$(ServiceWorkerBaseUrl.EndsWith(/))'">$(ServiceWorkerBaseUrl)/</ServiceWorkerBaseUrl>
 
     <!-- The CSB home page served up for the base URL -->
     <ProjectIndexPage Condition="'$(ProjectIndexPage)' == ''">index.html</ProjectIndexPage>

@@ -34,7 +34,7 @@
       <ServiceWorkerBlazorInstallMethod Condition="'$(ServiceWorkerBlazorInstallMethod)'==''">PWAInstallable</ServiceWorkerBlazorInstallMethod>
       <!-- Setup the declarations for the Service Worker Register -->
       <ServiceWorkerRegisterConstants Condition="'$(ServiceWorkerRegisterConstants)' == ''">
-        const serviceWorkerFileName = '$(ServiceWorkerBaseURL)$(ServiceWorkerFileName)'%3B;
+        const serviceWorkerFileName = '$(ServiceWorkerBaseUrl)$(ServiceWorkerFileName)'%3B;
         const swInstalledEvent = '$(ServiceWorkerInstalledEvent)'%3B;
         const staticCachePrefix = '$(ServiceWorkerCacheName)-v'%3B;
         const updateAlertMessage = '$(ServiceWorkerUpdateAlertText)'%3B;
@@ -110,7 +110,7 @@
     <WriteLinesToFile
       File="$(IndexFile)"
       Overwrite="true"
-      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;script src=&quot;$(ServiceWorkerBaseUrl)$(ServiceWorkerRegisterFileName)&quot;&gt;&lt;/script&gt;%0D%0A&lt;/head&gt;'))"
       Condition="'$(IndexLines.Contains($(ServiceWorkerRegisterFileName)))'=='false'"
       />
 

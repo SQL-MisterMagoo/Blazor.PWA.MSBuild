@@ -13,6 +13,8 @@
 
       <!-- Base URL for the app -->
       <ManifestBaseUrl Condition="'$(ManifestBaseUrl)' == ''">/</ManifestBaseUrl>
+      <ManifestBaseUrl Condition="!'$(ManifestBaseUrl.StartsWith(/))'">/$(ManifestBaseUrl)</ManifestBaseUrl>
+      <ManifestBaseUrl Condition="!'$(ManifestBaseUrl.EndsWith(/))'">$(ManifestBaseUrl)/</ManifestBaseUrl>
 
       <!-- Please see https://developers.google.com/web/fundamentals/web-app-manifest/#display for options -->
       <ManifestDisplay Condition="'$(ManifestDisplay)' == ''">standalone</ManifestDisplay>
@@ -82,7 +84,7 @@
     <WriteLinesToFile 
       File="$(IndexFile)" 
       Overwrite="true" 
-      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;link href=&quot;/$(ManifestFileName)&quot; rel=&quot;manifest&quot;/&gt;%0D%0A&lt;/head&gt;'))"
+      Lines="$(IndexLines.Replace('&lt;/head&gt;','    &lt;link href=&quot;$(ManifestBaseUrl)$(ManifestFileName)&quot; rel=&quot;manifest&quot;/&gt;%0D%0A&lt;/head&gt;'))"
       Condition="'$(IndexLines.Contains(rel=&quot;manifest&quot;))'=='false'"/>
   </Target>
 </Project>
