@@ -101,24 +101,29 @@ make an interop call back to the browser to trigger the app installation.
 @code
 {
     [Inject] IJSRuntime JSRuntime { get; set; }
-
     static bool Installable = false;
     static Action ml;
     protected override void OnInitialized()
     {
         ml = () => InvokeAsync(StateHasChanged);
     }
-    [JSInvokable]
-    public static Task InstallPWA()
+
+    [JSInvokable("InstallPwaPrompt")]
+    //a named method so that it is easy to call from JS Interop
+    // with the following config
+    // <ServiceWorkerRegisterInstallableType>installable-blazor</ServiceWorkerRegisterInstallableType>
+    // <ServiceWorkerBlazorAssembly>TestPwa.Client</ServiceWorkerBlazorAssembly>
+    // <ServiceWorkerBlazorInstallMethod>InstallPwaPrompt</ServiceWorkerBlazorInstallMethod>
+    public static Task InstallPwaPrompt()
     {
         Installable = true;
         ml.Invoke();
         return Task.CompletedTask;
     }
-    Task InstallClicked(UIMouseEventArgs args)
+    async void InstallClicked(MouseEventArgs args)
     {
         Installable = false;
-        return JSRuntime.InvokeAsync<object>("BlazorPWA.installPWA");
+        await JSRuntime.InvokeAsync<object>("BlazorPWA.installPWA");//this name comes from the nuget package that generates the pwa code, don't change it unless you change the generated code
     }
 }
 ```
