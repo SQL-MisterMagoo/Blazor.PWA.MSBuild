@@ -71,8 +71,19 @@ You can customise the message, or you can override that and pass the event
 over to your Blazor application - by setting the property 
 **`ServiceWorkerRegisterInstallableType`** to **`installable-blazor`** in your **.csproj**
 
+For example:
+``` 
+   <PropertyGroup Label="PWA">
+    <ServiceWorkerRegisterInstallableType>installable-blazor</ServiceWorkerRegisterInstallableType>
+    <ServiceWorkerForce>true</ServiceWorkerForce>
+   </PropertyGroup>
+```
+
 This will generate code in your **ServiceWorkerRegister.js** to make an
 interop call to Blazor when the **beforeinstallprompt** event fires in the browser.
+
+**ServiceWorkerRegisterInstallableType** tells it you are using Blazor for the install prompt. 
+**ServiceWorkerForce** just lets it update the generated files (remove it when you have it working).
 
 In your Blazor application, you will need code to handle this call
 - by default it will use the **ProjectName** and method name **"InstallPWA"** to 
