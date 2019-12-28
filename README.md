@@ -67,7 +67,7 @@ can use to display a prompt to the user.
 The default for this package is to simply display a bar at the bottom of the
 browser window prompting the user to install your app.
 
-You can customise the message, or you can override that and pass the event
+You can customize the message, or you can override that and pass the event
 over to your Blazor application - by setting the property 
 **`ServiceWorkerRegisterInstallableType`** to **`installable-blazor`** in your **.csproj**
 
