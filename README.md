@@ -1,4 +1,4 @@
-﻿# Blazor PWA Builder - MSBuild
+# Blazor PWA Builder - MSBuild (no longer under development due to official support now being available)
 
 The easiest way to turn your Server Side And Client Side Blazor projects into Progressive Web Apps (PWA).
 
